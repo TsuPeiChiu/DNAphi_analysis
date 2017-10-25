@@ -20,7 +20,8 @@ featureNames <- list(
   c("1-mer", "1-EP"),
   c("1-mer", "1-shape"),
   c("1-mer", "1-ProT", "1-Roll", "1-HelT", "1-EP"),
-  c("1-mer", "1-shape", "1-EP")
+  c("1-mer", "1-shape", "1-EP"),
+  c("1-mer", "1-MGW", "1-EP")
 )
 
 ## Run prediction
@@ -57,16 +58,5 @@ for(faFileName in faFileNames){
     write(result, file = paste0(folderPath,"\\", outputFileName), append = TRUE)
     
   }
-}
-
-# Write output into file
-# Output format:
-# fileName | groupName | count | MGW | EP | seq | seq+MGW | seq+EP | seq+shape | seq+3shape+ep | seq+shape+ep
-fileName <- paste0(folderPath, "\\", outputFileName)
-qt <- read.table(fileName)
-
-for( i in 1:floor(nrow(qt)/8) ){
-  result <- unname( cbind(qt[8*i-7, 1:3], t(qt[(8*i-7):(8*i), 5])) )
-  write.table(result, file = paste0(fileName, ".formated.txt"), append = TRUE, quote = FALSE)
 }
 
